@@ -223,6 +223,9 @@ export class LuxonDateAdapter extends DateAdapter<LuxonDateTime> {
   override deserialize(value: any): LuxonDateTime | null {
     const options = this._getOptions();
     let date: LuxonDateTime | undefined;
+    if (this.isDateInstance() && this.isValid(value)) {
+      return value;
+    }
     if (value instanceof Date) {
       date = LuxonDateTime.fromJSDate(value, options);
     }
